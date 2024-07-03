@@ -1,5 +1,7 @@
 import PySimpleGUI as psg
 
+psg.set_options(element_padding=(0,0), margins=(0,0), background_color="#353535")
+
 screen_width, screen_height = psg.Window.get_screen_size() #Obtener el tamaño de la pantalla actual
 
 # Layout de las imágenes para cada columna
@@ -54,5 +56,4 @@ while True:
     print(event,values)
     if event in (None, 'Exit'):
         break
-
 window.close()

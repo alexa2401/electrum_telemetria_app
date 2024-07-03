@@ -2,20 +2,49 @@ import PySimpleGUI as psg
 
 screen_width, screen_height = psg.Window.get_screen_size() #Obtener el tamaño de la pantalla actual
 
-#Columnas dentro del mod_medio
-col1_mod_medio = psg.Column([[psg.Canvas(background_color="#2C73B9", size=(screen_width/3, screen_height/3))]])
-col2_mod_medio = psg.Column([[psg.Canvas(background_color="#1B5590", size=(screen_width/3, screen_height/3))]])
-col3_mod_medio = psg.Column([[psg.Canvas(background_color="#0B3A69", size=(screen_width/3, screen_height/3))]])
+# Layout de las imágenes para cada columna
+col1_mod_medio_layout = [
+    [psg.Image(source="imgs/dog.png", size=(screen_width/3, screen_height/3))]
+]
+col2_mod_medio_layout = [
+    [psg.Image(source="imgs/cat.png", size=(screen_width/3, screen_height/3))]
+]
+col3_mod_medio_layout = [
+    [psg.Image(source="imgs/hamster.png", size=(screen_width/3, screen_height/3))]
+]
 
-#Filas dentro de la ventana
-mod_superior = [psg.Canvas(background_color="red", size=(screen_width, screen_height/3))]
-mod_medio = [col1_mod_medio, col2_mod_medio, col3_mod_medio]
-mod_inferior = [psg.Canvas(background_color="green", size=(screen_width, screen_height/3))]
+# Definición de las columnas utilizando sg.Column
+col1_mod_medio_column = psg.Column(col1_mod_medio_layout, size=(screen_width/3, screen_height/3))
+col2_mod_medio_column = psg.Column(col2_mod_medio_layout, size=(screen_width/3, screen_height/3))
+col3_mod_medio_column = psg.Column(col3_mod_medio_layout, size=(screen_width/3, screen_height/3))
 
-layout = [                                                  #Creacion y definido del layout
-    mod_superior,
-    mod_medio,
-    mod_inferior
+# Definición de los frames para cada columna
+col1_mod_medio_frame = psg.Frame('', [[col1_mod_medio_column]], size=(screen_width/3, screen_height/3))
+col2_mod_medio_frame = psg.Frame('', [[col2_mod_medio_column]], size=(screen_width/3, screen_height/3))
+col3_mod_medio_frame = psg.Frame('', [[col3_mod_medio_column]], size=(screen_width/3, screen_height/3))
+
+# Definición de los layouts de los módulos
+mod_superior_layout = []
+mod_medio_layout = [
+    [col1_mod_medio_frame, col2_mod_medio_frame, col3_mod_medio_frame]
+]
+mod_inferior_layout = []
+
+# Definición de los frames de los módulos
+mod_superior_frame = psg.Frame('', mod_superior_layout, size=(screen_width, screen_height/3))
+mod_medio_frame = psg.Frame('', mod_medio_layout, size=(screen_width, screen_height/3))
+mod_inferior_frame = psg.Frame('', mod_inferior_layout, size=(screen_width, screen_height/3))
+
+# Definición del layout principal
+master_layout = [
+    [mod_superior_frame],
+    [mod_medio_frame],
+    [mod_inferior_frame]
+]
+
+# Definición del layout de la ventana
+layout = [
+    [psg.Frame('', master_layout, expand_x=True, expand_y=True)]
 ]
 
 window = psg.Window("Electrum", layout, size=(screen_width, screen_height), resizable=True) #Creacion de la ventana
